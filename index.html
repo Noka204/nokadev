@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Nhu Khanh • Developer</title>
+    <meta
+      name="description"
+      content="Nhu Khanh — Developer. Xây dựng giao diện hiện đại; định hướng Backend C#/.NET."
+    />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='48' fill='%2338BDF8'/%3E%3Ctext x='50' y='62' font-size='48' text-anchor='middle' fill='white' font-family='Arial'%3EN%3C/text%3E%3C/svg%3E"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <header id="site-header" class="navbar">
+      <div class="container nav-inner">
+        <a href="#home" class="logo" aria-label="Trang chủ" data-scroll>
+          <span class="logo-text">NhuKhanh</span><span class="logo-dot">.</span>
+        </a>
+
+        <button
+          class="nav-toggle"
+          aria-label="Mở menu"
+          aria-expanded="false"
+          aria-controls="primary-nav"
+        >
+          <svg
+            class="icon-open"
+            viewBox="0 0 24 24"
+            width="24"
+            height="24"
+            fill="currentColor"
+          >
+            <path d="M3 6h18v2H3V6zm0 5h18v2H3v-2zm0 5h18v2H3v-2z" />
+          </svg>
+          <svg
+            class="icon-close"
+            viewBox="0 0 24 24"
+            width="24"
+            height="24"
+            fill="currentColor"
+          >
+            <path
+              d="M18.3 5.71 12 12.01 5.7 5.7 4.29 7.11 10.59 13.4 4.29 19.7 5.7 21.11 12 14.82 18.29 21.1 19.7 19.69 13.41 13.4 19.71 7.11z"
+            />
+          </svg>
+        </button>
+
+        <nav id="primary-nav" class="nav-links" aria-label="Chính">
+          <a href="#home" class="nav-link active" data-scroll>Home</a>
+          <a href="#about" class="nav-link" data-scroll>About</a>
+          <a href="#projects" class="nav-link" data-scroll>Projects</a>
+          <a href="#skills" class="nav-link" data-scroll>Skills</a>
+          <a href="#contact" class="nav-link" data-scroll>Contact</a>
+          <a href="#blog" class="nav-link" data-scroll>Blog</a>
+          <span class="nav-indicator" aria-hidden="true"></span>
+        </nav>
+      </div>
+    </header>
+
+    <div class="nav-backdrop" hidden></div>
+
+    <main id="snap" class="snap-container">
+      <!-- HERO -->
+      <section id="home" class="section hero">
+        <div class="container hero-grid">
+          <!-- LEFT -->
+          <div class="hero-left">
+            <div class="badge">
+              <span class="badge-icon">⚙️</span>
+              <span>Ready to Innovate</span>
+            </div>
+
+            <h1 class="headline">
+              <span class="front">Nhu Khanh</span><br />
+              <span class="dev gradient-text">Developer</span>
+            </h1>
+
+            <p class="typing subline"><span id="typing"></span></p>
+
+            <p class="lead">
+              Xây dựng giao diện hiện đại, tối ưu trải nghiệm người dùng. Định
+              hướng Backend C#/.NET — chú trọng ổn định & bảo mật.
+            </p>
+
+            <ul class="chips">
+              <li>React</li>
+              <li>JavaScript</li>
+              <li>Node.js</li>
+              <li>Tailwind</li>
+            </ul>
+
+            <div class="actions">
+              <a href="#projects" class="btn btn-primary" data-scroll
+                >Projects</a
+              >
+              <a href="#contact" class="btn btn-ghost" data-scroll>Contact</a>
+            </div>
+          </div>
+
+          <!-- RIGHT (glass cards nhẹ) -->
+          <div class="hero-right">
+            <div class="glass-card gc-1"></div>
+            <div class="glass-card gc-2"></div>
+            <div class="glass-card gc-3"></div>
+            <div class="ring r-1"></div>
+            <div class="ring r-2"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ABOUT -->
+      <section id="about" class="section alt">
+        <div class="container center-col">
+          <h2 class="section-title">About Me</h2>
+          <p class="section-desc">
+            Mình thích UI rõ ràng, hiệu năng tốt, responsive. Định hướng
+            <b>Backend C#/.NET</b> để làm chủ hệ thống ổn định & bảo mật.
+          </p>
+        </div>
+      </section>
+
+      <!-- PROJECTS -->
+      <section id="projects" class="section">
+        <div class="container">
+          <h2 class="section-title glow">Projects</h2>
+          <div class="grid auto">
+            <article class="card">
+              <h3 class="card-title">Dashboard Analytics</h3>
+              <p class="card-desc">Next.js + Chart.js.</p>
+            </article>
+            <article class="card">
+              <h3 class="card-title">E-commerce Lite</h3>
+              <p class="card-desc">Giỏ hàng + payment mock.</p>
+            </article>
+            <article class="card">
+              <h3 class="card-title">Docs Theme</h3>
+              <p class="card-desc">MDX, dark mode, cmd-k search.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- SKILLS -->
+      <section id="skills" class="section alt">
+        <div class="container">
+          <h2 class="section-title">Skills</h2>
+          <ul class="skills">
+            <li><span>C# / .NET</span><i style="--v: 80%"></i></li>
+            <li><span>HTML / CSS</span><i style="--v: 90%"></i></li>
+            <li><span>JavaScript</span><i style="--v: 82%"></i></li>
+            <li><span>REST API</span><i style="--v: 75%"></i></li>
+            <li><span>SQL / EF Core</span><i style="--v: 70%"></i></li>
+            <li><span>Git / GitHub</span><i style="--v: 78%"></i></li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- CONTACT -->
+      <section id="contact" class="section">
+        <div class="container center-col">
+          <h2 class="section-title">Contact</h2>
+          <form
+            class="contact-form"
+            action="mailto:you@example.com"
+            method="post"
+            enctype="text/plain"
+          >
+            <input type="text" name="name" placeholder="Tên của bạn" required />
+            <input type="email" name="email" placeholder="Email" required />
+            <textarea name="msg" rows="4" placeholder="Lời nhắn..."></textarea>
+            <button type="submit" class="btn btn-primary">Send</button>
+          </form>
+        </div>
+      </section>
+
+      <footer class="footer-inner">
+        <div class="container">
+          <div class="footer-grid">
+            <div>
+              <h3 class="brand">NhuKhanh<span>•dev</span></h3>
+              <p class="muted">
+                Giao diện hiện đại. Định hướng Backend C#/.NET — ổn định & bảo
+                mật.
+              </p>
+            </div>
+            <nav class="foot-nav">
+              <a href="#home" data-scroll>Home</a>
+              <a href="#projects" data-scroll>Projects</a>
+              <a href="#skills" data-scroll>Skills</a>
+              <a href="#contact" data-scroll>Contact</a>
+            </nav>
+            <div class="foot-social">
+              <a href="#" aria-label="GitHub">GitHub</a>
+              <a href="#" aria-label="LinkedIn">LinkedIn</a>
+              <a href="#" aria-label="Instagram">Instagram</a>
+            </div>
+          </div>
+          <div class="copy muted">© 2025 Nhu Khanh. All rights reserved.</div>
+        </div>
+      </footer>
+    </main>
+
+    <script src="js/script.js" defer></script>
+  </body>
+</html>
