@@ -3,6 +3,8 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <base href="/nokadev/" />
+
     <title>Nhu Khanh • Developer</title>
     <meta
       name="description"
@@ -32,10 +34,22 @@
       body {
         height: 100%;
       }
+
+      /* Snap "êm" hơn, và tắt trên màn hình nhỏ */
       html {
-        scroll-snap-type: y mandatory;
+        scroll-snap-type: y proximity; /* trước đây: mandatory */
         scroll-behavior: smooth;
       }
+      /* Khi cần, tắt snap toàn cục bằng class .no-snap */
+      html.no-snap {
+        scroll-snap-type: none !important;
+      }
+      @media (max-width: 1023.98px) {
+        html {
+          scroll-snap-type: none;
+        }
+      }
+
       body {
         margin: 0;
         font-family: ui-sans-serif, system-ui, -apple-system, Inter, Segoe UI,
@@ -44,6 +58,7 @@
         color: var(--text);
         -webkit-font-smoothing: antialiased;
         min-height: 100vh;
+        overscroll-behavior-y: contain; /* hạn chế giật khi quán tính */
       }
       a {
         color: inherit;
@@ -952,7 +967,7 @@
       .cert-media img {
         width: 100%;
         height: 220px;
-        object-fit: contain; /* GIỮ TỈ LỆ GỐC */
+        object-fit: contain;
         display: block;
         background: radial-gradient(
           600px 220px at 50% 50%,
@@ -1060,7 +1075,6 @@
         display: flex;
         gap: 8px;
       }
-      .cert-tools a,
       .cert-close {
         border: 1px solid rgba(255, 255, 255, 0.16);
         background: rgba(17, 21, 33, 0.9);
@@ -1070,7 +1084,6 @@
         cursor: pointer;
         font-weight: 700;
       }
-      .cert-tools a:hover,
       .cert-close:hover {
         background: #0f1725;
       }
@@ -1079,6 +1092,109 @@
         height: 100%;
         border: 0;
         background: #0b1120;
+      }
+      /* ===== Contact Section ===== */
+      .section#contact {
+        padding: clamp(40px, 8vh, 80px) 0;
+        background: var(--surface-2);
+      }
+
+      .contact-form {
+        width: min(720px, 100%);
+        margin: 0 auto;
+        display: grid;
+        gap: 1.2rem;
+        background: rgba(255, 255, 255, 0.02);
+        padding: clamp(24px, 4vw, 32px);
+        border-radius: 16px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+      }
+
+      .contact-form input,
+      .contact-form textarea {
+        width: 100%;
+        background: rgba(11, 17, 32, 0.6);
+        color: #e6eaf2;
+        border: 1px solid rgba(124, 58, 237, 0.15);
+        border-radius: 12px;
+        padding: 1rem 1.2rem;
+        font-size: 1rem;
+        transition: 0.2s ease;
+      }
+
+      .contact-form input:focus,
+      .contact-form textarea:focus {
+        outline: none;
+        border-color: rgba(124, 58, 237, 0.4);
+        box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.1);
+        background: rgba(11, 17, 32, 0.8);
+      }
+
+      .contact-form textarea {
+        resize: vertical;
+        min-height: 120px;
+      }
+
+      .contact-form input::placeholder,
+      .contact-form textarea::placeholder {
+        color: #9aa6b2;
+      }
+
+      .contact-form button {
+        justify-content: center;
+        background: linear-gradient(180deg, #5b21b6, #172554);
+        border-color: #6d28d9;
+        color: #fff;
+        font-size: 1rem;
+        padding: 1rem;
+        transition: 0.25s ease;
+        margin-top: 0.5rem;
+      }
+
+      .contact-form button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 24px rgba(124, 58, 237, 0.25);
+        background: linear-gradient(180deg, #6d28d9, #1e3a8a);
+      }
+
+      .section#contact .section-title {
+        text-align: center;
+        margin-bottom: clamp(32px, 6vh, 48px);
+        background: linear-gradient(90deg, #fff, #ccd6f6);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+
+      /* Contact form loading/success states */
+      .contact-form.loading button {
+        opacity: 0.7;
+        cursor: wait;
+      }
+
+      .contact-form .success-message {
+        text-align: center;
+        color: #10b981;
+        font-weight: 600;
+        background: rgba(16, 185, 129, 0.1);
+        border: 1px solid rgba(16, 185, 129, 0.2);
+        border-radius: 8px;
+        padding: 1rem;
+        margin-top: 1rem;
+      }
+
+      /* Responsive adjustments */
+      @media (max-width: 640px) {
+        .contact-form {
+          padding: 20px;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+          padding: 0.9rem 1rem;
+          font-size: 0.95rem;
+        }
       }
     </style>
   </head>
@@ -1115,7 +1231,6 @@
             />
           </svg>
         </button>
-        <!-- Update the blog link in the nav -->
         <nav id="primary-nav" class="nav-links" aria-label="Chính">
           <a href="../index.html#home" class="nav-link">Home</a>
           <a href="../index.html#about" class="nav-link">About</a>
@@ -1141,8 +1256,9 @@
               </h1>
               <p class="typing subline"><span id="typing"></span></p>
               <p class="lead">
-                Không ai có thể quay ngược thời gian, nhưng ai cũng có thể bắt
-                đầu lại từ hôm nay.
+                Mục đích của việc học là phát triển, và tâm trí của chúng ta,
+                không giống như cơ thể của chúng ta, có thể tiếp tục phát triển
+                chừng nào chúng ta còn sống.
               </p>
               <div class="actions">
                 <a href="#projects" class="btn btn-primary" data-scroll
@@ -1167,7 +1283,7 @@
             <div class="about-header"><div class="kicker">ABOUT ME</div></div>
             <div class="about-grid">
               <div class="about-avatar">
-                <img src="./images/avatar.jpg" alt="Trần Như Khánh" />
+                <img src="../images/avatar.png" alt="Trần Như Khánh" />
               </div>
               <div class="about-content">
                 <h3 class="about-name">Trần Như Khánh</h3>
@@ -1483,6 +1599,7 @@
       const openNav = () => {
         nav.classList.add("open");
         backdrop.hidden = false;
+        document.documentElement.classList.add("no-snap"); // TẮT snap khi mở menu
         toggle?.setAttribute("aria-expanded", "true");
         toggle?.querySelector(".icon-open") &&
           (toggle.querySelector(".icon-open").style.display = "none");
@@ -1492,6 +1609,7 @@
       const closeNav = () => {
         nav.classList.remove("open");
         backdrop.hidden = true;
+        document.documentElement.classList.remove("no-snap"); // BẬT lại snap
         toggle?.setAttribute("aria-expanded", "false");
         toggle?.querySelector(".icon-open") &&
           (toggle.querySelector(".icon-open").style.display = "");
@@ -1571,23 +1689,21 @@
       const modal = document.getElementById("certModal");
       const frame = document.getElementById("certFrame");
       const titleEl = document.getElementById("certTitle");
-      const linkDownload = document.getElementById("certDownload");
-      const linkOpenNew = document.getElementById("certOpenNew");
       const btnClose = modal?.querySelector(".cert-close");
 
       function openPdfViewer(pdfSrc, title) {
         if (!pdfSrc) return;
         frame.src = pdfSrc; // nhúng PDF
         titleEl.textContent = title || "Certificate";
-        linkDownload.href = pdfSrc; // link download
-        linkOpenNew.href = pdfSrc; // mở tab mới
         modal.hidden = false;
         document.body.style.overflow = "hidden";
+        document.documentElement.classList.add("no-snap"); // TẮT snap khi mở modal
       }
       function closePdfViewer() {
         modal.hidden = true;
         frame.src = ""; // dọn iframe để giải phóng bộ nhớ
         document.body.style.overflow = "";
+        document.documentElement.classList.remove("no-snap"); // BẬT lại snap
       }
 
       document.addEventListener("click", (e) => {
