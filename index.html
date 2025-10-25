@@ -35,12 +35,11 @@
         height: 100%;
       }
 
-      /* Snap "êm" hơn, và tắt trên màn hình nhỏ */
+      /* Snap “êm”, tắt trên màn nhỏ */
       html {
-        scroll-snap-type: y proximity; /* trước đây: mandatory */
+        scroll-snap-type: y proximity;
         scroll-behavior: smooth;
       }
-      /* Khi cần, tắt snap toàn cục bằng class .no-snap */
       html.no-snap {
         scroll-snap-type: none !important;
       }
@@ -58,7 +57,7 @@
         color: var(--text);
         -webkit-font-smoothing: antialiased;
         min-height: 100vh;
-        overscroll-behavior-y: contain; /* hạn chế giật khi quán tính */
+        overscroll-behavior-y: contain;
       }
       a {
         color: inherit;
@@ -125,6 +124,7 @@
           background-position: 200% 0;
         }
       }
+
       .nav-toggle {
         display: none;
         width: 42px;
@@ -144,6 +144,7 @@
       .nav-toggle .icon-close {
         display: none;
       }
+
       .nav-links {
         position: relative;
         display: flex;
@@ -158,6 +159,7 @@
         backdrop-filter: blur(2px);
         z-index: 1201;
       }
+
       .nav-link {
         position: relative;
         color: #cfe4ff;
@@ -220,6 +222,7 @@
           transform: scale(1.03);
         }
       }
+
       @media (min-width: 1024px) {
         .nav-links {
           transform: none !important;
@@ -381,6 +384,7 @@
         display: inline-flex;
         gap: 0.5rem;
         font-weight: 800;
+        cursor: pointer;
       }
       .btn-ghost {
         background: rgba(255, 255, 255, 0.06);
@@ -392,6 +396,7 @@
         border-color: #6d28d9;
         color: #fff;
       }
+
       .hero-right {
         position: relative;
         min-height: 520px;
@@ -465,21 +470,76 @@
         );
       }
 
-      /* ===== About ===== */
+      /* Hero left rộng hơn */
+      .section.hero .hero-grid {
+        grid-template-columns: minmax(560px, 1.35fr) 0.65fr;
+        gap: clamp(1.4rem, 2.2vw, 2.2rem);
+      }
+      .hero-left {
+        max-width: 820px;
+        padding-inline-start: clamp(28px, 6.5vw, 128px);
+      }
+      .hero-right {
+        min-height: 460px;
+      }
+      .hero-right .gc-1 {
+        width: 300px;
+        height: 180px;
+        right: 6%;
+        top: 110px;
+      }
+      .hero-right .gc-2 {
+        width: 120px;
+        height: 82px;
+        right: 44%;
+        top: 66px;
+      }
+      .hero-right .gc-3 {
+        width: 96px;
+        height: 136px;
+        right: -1%;
+        top: 270px;
+      }
+      @media (max-width: 1279.98px) {
+        .section.hero .hero-grid {
+          grid-template-columns: minmax(500px, 1.25fr) 0.75fr;
+        }
+        .hero-right {
+          min-height: 420px;
+        }
+      }
+      @media (max-width: 1023.98px) {
+        .section.hero .hero-grid {
+          grid-template-columns: 1fr;
+        }
+        .hero-left {
+          padding-inline-start: clamp(12px, 5vw, 28px);
+          max-width: none;
+        }
+        .hero-right {
+          min-height: 300px;
+        }
+      }
+
+      /* ===== About — FULL SCREEN SCROLL ===== */
       .section.about-section {
-        min-height: unset;
+        /* Trở lại min-height = 1 màn hình (ghi đè cấu hình trước đó) */
+        min-height: calc(100vh - var(--header-h));
         background: var(--surface-2);
         position: relative;
         overflow: hidden;
+        display: flex;
+        align-items: center;
       }
       .about-inner {
         padding: clamp(40px, 8vh, 80px) clamp(24px, 5vw, 48px);
         position: relative;
         z-index: 1;
+        width: 100%;
       }
       .about-header {
         text-align: center;
-        margin-bottom: clamp(40px, 8vh, 64px);
+        margin-bottom: clamp(28px, 5vh, 48px);
       }
       .about-header .kicker {
         font-size: clamp(1.2rem, 2vw, 1.6rem);
@@ -494,7 +554,7 @@
       .about-grid {
         display: grid;
         grid-template-columns: 380px 1fr;
-        gap: clamp(40px, 6vw, 80px);
+        gap: clamp(32px, 5vw, 64px);
         align-items: center;
         max-width: 1200px;
         margin: 0 auto;
@@ -538,12 +598,12 @@
       .about-sub {
         font-size: 1.1rem;
         color: var(--accent-2);
-        margin: 0 0 24px;
+        margin: 0 0 20px;
         font-weight: 600;
         opacity: 0.9;
       }
       .about-meta {
-        margin: 0 0 32px;
+        margin: 0 0 24px;
         display: grid;
         gap: 12px;
       }
@@ -565,13 +625,13 @@
       .about-intro {
         color: var(--muted);
         line-height: 1.7;
-        margin: 0 0 32px;
+        margin: 0 0 24px;
         font-size: 1.05rem;
       }
       .about-skill-title {
         color: #e2e8f0;
         font-size: 1.1rem;
-        margin: 0 0 16px;
+        margin: 0 0 12px;
       }
       .about-skills {
         display: flex;
@@ -594,11 +654,28 @@
         background: rgba(124, 58, 237, 0.12);
         transform: translateY(-1px);
       }
+
+      /* Nút Xem CV ở About */
+      .about-actions {
+        margin-top: 18px;
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+      .btn-cv {
+        background: rgba(255, 255, 255, 0.06);
+        border-color: #2b3651;
+        color: #eaf2ff;
+      }
+      .btn-cv:hover {
+        background: rgba(255, 255, 255, 0.09);
+      }
+
       @media (max-width: 1024px) {
         .about-grid {
           grid-template-columns: 1fr;
           text-align: center;
-          gap: 40px;
+          gap: 32px;
         }
         .about-avatar {
           display: flex;
@@ -852,7 +929,6 @@
       .foot-social a {
         color: #cfe4ff;
         margin-right: 0.9rem;
-        text-decoration: none;
         position: relative;
       }
       .foot-nav a:hover,
@@ -878,57 +954,6 @@
         margin-top: 1rem;
         text-align: center;
         color: #9aa6b2;
-      }
-
-      /* Hero left rộng hơn */
-      .section.hero .hero-grid {
-        grid-template-columns: minmax(560px, 1.35fr) 0.65fr;
-        gap: clamp(1.4rem, 2.2vw, 2.2rem);
-      }
-      .hero-left {
-        max-width: 820px;
-        padding-inline-start: clamp(28px, 6.5vw, 128px);
-      }
-      .hero-right {
-        min-height: 460px;
-      }
-      .hero-right .gc-1 {
-        width: 300px;
-        height: 180px;
-        right: 6%;
-        top: 110px;
-      }
-      .hero-right .gc-2 {
-        width: 120px;
-        height: 82px;
-        right: 44%;
-        top: 66px;
-      }
-      .hero-right .gc-3 {
-        width: 96px;
-        height: 136px;
-        right: -1%;
-        top: 270px;
-      }
-      @media (max-width: 1279.98px) {
-        .section.hero .hero-grid {
-          grid-template-columns: minmax(500px, 1.25fr) 0.75fr;
-        }
-        .hero-right {
-          min-height: 420px;
-        }
-      }
-      @media (max-width: 1023.98px) {
-        .section.hero .hero-grid {
-          grid-template-columns: 1fr;
-        }
-        .hero-left {
-          padding-inline-start: clamp(12px, 5vw, 28px);
-          max-width: none;
-        }
-        .hero-right {
-          min-height: 300px;
-        }
       }
 
       /* ===== Certificate (UPDATED) ===== */
@@ -1023,7 +1048,7 @@
         border-color: rgba(124, 58, 237, 0.25);
       }
 
-      /* Modal PDF viewer */
+      /* Modal PDF viewer (reuse for CV) */
       .cert-modal {
         position: fixed;
         inset: 0;
@@ -1093,12 +1118,12 @@
         border: 0;
         background: #0b1120;
       }
-      /* ===== Contact Section ===== */
+
+      /* ===== Contact ===== */
       .section#contact {
         padding: clamp(40px, 8vh, 80px) 0;
         background: var(--surface-2);
       }
-
       .contact-form {
         width: min(720px, 100%);
         margin: 0 auto;
@@ -1110,7 +1135,6 @@
         border: 1px solid rgba(255, 255, 255, 0.08);
         box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
       }
-
       .contact-form input,
       .contact-form textarea {
         width: 100%;
@@ -1122,7 +1146,6 @@
         font-size: 1rem;
         transition: 0.2s ease;
       }
-
       .contact-form input:focus,
       .contact-form textarea:focus {
         outline: none;
@@ -1130,17 +1153,14 @@
         box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.1);
         background: rgba(11, 17, 32, 0.8);
       }
-
       .contact-form textarea {
         resize: vertical;
         min-height: 120px;
       }
-
       .contact-form input::placeholder,
       .contact-form textarea::placeholder {
         color: #9aa6b2;
       }
-
       .contact-form button {
         justify-content: center;
         background: linear-gradient(180deg, #5b21b6, #172554);
@@ -1151,13 +1171,11 @@
         transition: 0.25s ease;
         margin-top: 0.5rem;
       }
-
       .contact-form button:hover {
         transform: translateY(-2px);
         box-shadow: 0 12px 24px rgba(124, 58, 237, 0.25);
         background: linear-gradient(180deg, #6d28d9, #1e3a8a);
       }
-
       .section#contact .section-title {
         text-align: center;
         margin-bottom: clamp(32px, 6vh, 48px);
@@ -1166,13 +1184,10 @@
         background-clip: text;
         color: transparent;
       }
-
-      /* Contact form loading/success states */
       .contact-form.loading button {
         opacity: 0.7;
         cursor: wait;
       }
-
       .contact-form .success-message {
         text-align: center;
         color: #10b981;
@@ -1183,13 +1198,10 @@
         padding: 1rem;
         margin-top: 1rem;
       }
-
-      /* Responsive adjustments */
       @media (max-width: 640px) {
         .contact-form {
           padding: 20px;
         }
-
         .contact-form input,
         .contact-form textarea {
           padding: 0.9rem 1rem;
@@ -1265,6 +1277,16 @@
                   >Projects</a
                 >
                 <a href="#contact" class="btn btn-ghost" data-scroll>Contact</a>
+                <!-- Nút Xem CV (mở trong modal PDF) -->
+                <button
+                  class="btn btn-ghost btn-cv"
+                  type="button"
+                  data-open-cv
+                  data-pdf="./documents/CV_TranNhuKhanh.pdf"
+                  data-title="Curriculum Vitae — Trần Như Khánh"
+                >
+                  Xem CV
+                </button>
               </div>
             </div>
             <div class="hero-right">
@@ -1277,7 +1299,7 @@
           </div>
         </section>
 
-        <!-- ABOUT -->
+        <!-- ABOUT (FULL SCREEN SCROLL) -->
         <section id="about" class="section alt about-section">
           <div class="container about-inner">
             <div class="about-header"><div class="kicker">ABOUT ME</div></div>
@@ -1320,6 +1342,25 @@
                   <li>JavaScript</li>
                   <li>Web Development</li>
                 </ul>
+                <!-- Nút Xem CV ngay tại About -->
+                <div class="about-actions">
+                  <button
+                    class="btn btn-cv"
+                    type="button"
+                    data-open-cv
+                    data-pdf="./documents/CV_TranNhuKhanh.pdf"
+                    data-title="Curriculum Vitae — Trần Như Khánh"
+                  >
+                    Xem CV
+                  </button>
+                  <a
+                    class="btn btn-ghost"
+                    href="./documents/CV_TranNhuKhanh.pdf"
+                    target="_blank"
+                    rel="noopener"
+                    >Tải CV</a
+                  >
+                </div>
               </div>
             </div>
           </div>
@@ -1430,12 +1471,11 @@
           </div>
         </section>
 
-        <!-- CERTIFICATE (UPDATED) -->
+        <!-- CERTIFICATE -->
         <section id="certificate" class="section alt">
           <div class="container">
             <h2 class="section-title">Certificate</h2>
             <div class="cert-grid">
-              <!-- Card 1 -->
               <article
                 class="cert-card"
                 data-cert
@@ -1460,7 +1500,6 @@
                 </div>
               </article>
 
-              <!-- Card 2 -->
               <article
                 class="cert-card"
                 data-cert
@@ -1485,7 +1524,6 @@
                 </div>
               </article>
 
-              <!-- Card 3 -->
               <article
                 class="cert-card"
                 data-cert
@@ -1513,7 +1551,7 @@
           </div>
         </section>
 
-        <!-- Modal PDF viewer -->
+        <!-- Modal PDF viewer (reuse for Certificate + CV) -->
         <div id="certModal" class="cert-modal" hidden>
           <div
             class="cert-dialog"
@@ -1522,7 +1560,7 @@
             aria-labelledby="certTitle"
           >
             <div class="cert-head">
-              <h4 id="certTitle">Certificate</h4>
+              <h4 id="certTitle">Document</h4>
               <div class="cert-tools">
                 <button class="cert-close" type="button" aria-label="Đóng">
                   Đóng
@@ -1533,7 +1571,7 @@
               id="certFrame"
               class="cert-frame"
               src=""
-              title="Certificate PDF"
+              title="PDF Viewer"
             ></iframe>
           </div>
         </div>
@@ -1599,7 +1637,7 @@
       const openNav = () => {
         nav.classList.add("open");
         backdrop.hidden = false;
-        document.documentElement.classList.add("no-snap"); // TẮT snap khi mở menu
+        document.documentElement.classList.add("no-snap");
         toggle?.setAttribute("aria-expanded", "true");
         toggle?.querySelector(".icon-open") &&
           (toggle.querySelector(".icon-open").style.display = "none");
@@ -1609,7 +1647,7 @@
       const closeNav = () => {
         nav.classList.remove("open");
         backdrop.hidden = true;
-        document.documentElement.classList.remove("no-snap"); // BẬT lại snap
+        document.documentElement.classList.remove("no-snap");
         toggle?.setAttribute("aria-expanded", "false");
         toggle?.querySelector(".icon-open") &&
           (toggle.querySelector(".icon-open").style.display = "");
@@ -1685,7 +1723,7 @@
       );
       sections.forEach((s) => io.observe(s));
 
-      // ===== Certificates PDF modal viewer =====
+      // ===== PDF modal viewer (Certificate + CV) =====
       const modal = document.getElementById("certModal");
       const frame = document.getElementById("certFrame");
       const titleEl = document.getElementById("certTitle");
@@ -1693,19 +1731,20 @@
 
       function openPdfViewer(pdfSrc, title) {
         if (!pdfSrc) return;
-        frame.src = pdfSrc; // nhúng PDF
-        titleEl.textContent = title || "Certificate";
+        frame.src = pdfSrc;
+        titleEl.textContent = title || "Document";
         modal.hidden = false;
         document.body.style.overflow = "hidden";
-        document.documentElement.classList.add("no-snap"); // TẮT snap khi mở modal
+        document.documentElement.classList.add("no-snap");
       }
       function closePdfViewer() {
         modal.hidden = true;
-        frame.src = ""; // dọn iframe để giải phóng bộ nhớ
+        frame.src = "";
         document.body.style.overflow = "";
-        document.documentElement.classList.remove("no-snap"); // BẬT lại snap
+        document.documentElement.classList.remove("no-snap");
       }
 
+      // Click trong grid Certificate
       document.addEventListener("click", (e) => {
         const card = e.target.closest(".cert-card");
         const viewBtn = e.target.closest(".cert-btn");
@@ -1714,6 +1753,15 @@
           const title = card.getAttribute("data-title");
           openPdfViewer(pdf, title);
         }
+      });
+
+      // Nút “Xem CV” (hero + about)
+      document.addEventListener("click", (e) => {
+        const cvBtn = e.target.closest("[data-open-cv]");
+        if (!cvBtn) return;
+        const pdf = cvBtn.getAttribute("data-pdf");
+        const title = cvBtn.getAttribute("data-title") || "Curriculum Vitae";
+        openPdfViewer(pdf, title);
       });
 
       btnClose?.addEventListener("click", closePdfViewer);
