@@ -35,7 +35,7 @@
         height: 100%;
       }
 
-      /* Snap “êm”, tắt trên màn nhỏ */
+      /* Snap */
       html {
         scroll-snap-type: y proximity;
         scroll-behavior: smooth;
@@ -231,9 +231,7 @@
           padding: 0 !important;
           display: flex !important;
         }
-        .nav-toggle {
-          display: none !important;
-        }
+        .nav-toggle,
         .nav-backdrop {
           display: none !important;
         }
@@ -470,7 +468,7 @@
         );
       }
 
-      /* Hero left rộng hơn */
+      /* Hero width tweaks */
       .section.hero .hero-grid {
         grid-template-columns: minmax(560px, 1.35fr) 0.65fr;
         gap: clamp(1.4rem, 2.2vw, 2.2rem);
@@ -521,9 +519,8 @@
         }
       }
 
-      /* ===== About — FULL SCREEN SCROLL ===== */
+      /* ===== About ===== */
       .section.about-section {
-        /* Trở lại min-height = 1 màn hình (ghi đè cấu hình trước đó) */
         min-height: calc(100vh - var(--header-h));
         background: var(--surface-2);
         position: relative;
@@ -655,7 +652,6 @@
         transform: translateY(-1px);
       }
 
-      /* Nút Xem CV ở About */
       .about-actions {
         margin-top: 18px;
         display: flex;
@@ -956,7 +952,7 @@
         color: #9aa6b2;
       }
 
-      /* ===== Certificate (UPDATED) ===== */
+      /* ===== Certificate ===== */
       .section#certificate {
         padding: clamp(40px, 8vh, 80px) 0;
       }
@@ -1048,7 +1044,7 @@
         border-color: rgba(124, 58, 237, 0.25);
       }
 
-      /* Modal PDF viewer (reuse for CV) */
+      /* ===== Modal PDF viewer (CV + xem PDF gốc) ===== */
       .cert-modal {
         position: fixed;
         inset: 0;
@@ -1117,6 +1113,33 @@
         height: 100%;
         border: 0;
         background: #0b1120;
+      }
+
+      /* ===== Image Lightbox cho Certificate ===== */
+      .img-dialog {
+        width: min(96vw, 1200px);
+        height: min(86vh, 900px);
+        border-radius: 14px;
+        overflow: hidden;
+        position: relative;
+        background: #0b1120;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5);
+        animation: certIn 0.18s ease-out;
+        display: grid;
+        grid-template-rows: auto 1fr;
+      }
+      .img-box {
+        background: #0b1120;
+        display: grid;
+        place-items: center;
+        padding: 8px;
+      }
+      #imgViewer {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+        display: block;
       }
 
       /* ===== Contact ===== */
@@ -1277,7 +1300,6 @@
                   >Projects</a
                 >
                 <a href="#contact" class="btn btn-ghost" data-scroll>Contact</a>
-                <!-- Nút Xem CV (mở trong modal PDF) -->
               </div>
             </div>
             <div class="hero-right">
@@ -1290,7 +1312,7 @@
           </div>
         </section>
 
-        <!-- ABOUT (FULL SCREEN SCROLL) -->
+        <!-- ABOUT -->
         <section id="about" class="section alt about-section">
           <div class="container about-inner">
             <div class="about-header"><div class="kicker">ABOUT ME</div></div>
@@ -1333,7 +1355,6 @@
                   <li>JavaScript</li>
                   <li>Web Development</li>
                 </ul>
-                <!-- Nút Xem CV ngay tại About -->
                 <div class="about-actions">
                   <button
                     class="btn btn-cv"
@@ -1344,12 +1365,12 @@
                   >
                     Xem CV
                   </button>
-                   <a
-+                    class="btn btn-ghost"
-+                    href="./images/CV_TranNhuKhanh.pdf"
-+                    download="CV_TranNhuKhanh.pdf"
-+                    >Tải CV</a
-+                  >
+                  <a
+                    class="btn btn-ghost"
+                    href="./images/CV_TranNhuKhanh.pdf"
+                    download="CV_TranNhuKhanh.pdf"
+                    >Tải CV</a
+                  >
                 </div>
               </div>
             </div>
@@ -1471,6 +1492,7 @@
                 data-cert
                 data-title="Cisco NetAcad • JavaScript Essentials 1"
                 data-pdf="./images/certificates/JavaScriptEssentials1.pdf"
+                data-img="./images/certificates/JavaScriptEssentials1.jpg"
               >
                 <div class="cert-media">
                   <img
@@ -1495,6 +1517,7 @@
                 data-cert
                 data-title="Cisco NetAcad • JavaScript Essentials 2"
                 data-pdf="./images/certificates/JavaScriptEssentials2.pdf"
+                data-img="./images/certificates/JavaScriptEssentials2.jpg"
               >
                 <div class="cert-media">
                   <img
@@ -1519,6 +1542,7 @@
                 data-cert
                 data-title="Cisco NetAcad • Networking Basics"
                 data-pdf="./images/certificates/NetworkingBasics.pdf"
+                data-img="./images/certificates/NetworkingBasics.jpg"
               >
                 <div class="cert-media">
                   <img
@@ -1541,7 +1565,7 @@
           </div>
         </section>
 
-        <!-- Modal PDF viewer (reuse for Certificate + CV) -->
+        <!-- Modal PDF viewer (Certificate + CV) -->
         <div id="certModal" class="cert-modal" hidden>
           <div
             class="cert-dialog"
@@ -1563,6 +1587,28 @@
               src=""
               title="PDF Viewer"
             ></iframe>
+          </div>
+        </div>
+
+        <!-- Modal ẢNH (lightbox) cho Certificate -->
+        <div id="imgModal" class="cert-modal" hidden>
+          <div
+            class="img-dialog"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="imgTitle"
+          >
+            <div class="cert-head">
+              <h4 id="imgTitle">Certificate</h4>
+              <div class="cert-tools">
+                <button class="cert-close" type="button" aria-label="Đóng">
+                  Đóng
+                </button>
+              </div>
+            </div>
+            <div class="img-box">
+              <img id="imgViewer" alt="Certificate preview" />
+            </div>
           </div>
         </div>
 
@@ -1713,7 +1759,7 @@
       );
       sections.forEach((s) => io.observe(s));
 
-      // ===== PDF modal viewer (Certificate + CV) =====
+      // ===== PDF modal viewer (Certificate "Xem PDF" + CV) =====
       const modal = document.getElementById("certModal");
       const frame = document.getElementById("certFrame");
       const titleEl = document.getElementById("certTitle");
@@ -1733,33 +1779,71 @@
         document.body.style.overflow = "";
         document.documentElement.classList.remove("no-snap");
       }
-
-      // Click trong grid Certificate
-      document.addEventListener("click", (e) => {
-        const card = e.target.closest(".cert-card");
-        const viewBtn = e.target.closest(".cert-btn");
-        if (card && viewBtn && viewBtn.tagName === "BUTTON") {
-          const pdf = card.getAttribute("data-pdf");
-          const title = card.getAttribute("data-title");
-          openPdfViewer(pdf, title);
-        }
-      });
-
-      // Nút “Xem CV” (hero + about)
-      document.addEventListener("click", (e) => {
-        const cvBtn = e.target.closest("[data-open-cv]");
-        if (!cvBtn) return;
-        const pdf = cvBtn.getAttribute("data-pdf");
-        const title = cvBtn.getAttribute("data-title") || "Curriculum Vitae";
-        openPdfViewer(pdf, title);
-      });
-
       btnClose?.addEventListener("click", closePdfViewer);
       modal?.addEventListener("click", (e) => {
         if (e.target === modal) closePdfViewer();
       });
       document.addEventListener("keydown", (e) => {
         if (e.key === "Escape" && !modal.hidden) closePdfViewer();
+      });
+
+      // ===== IMAGE lightbox cho Certificate (click card) =====
+      const imgModal = document.getElementById("imgModal");
+      const imgViewer = document.getElementById("imgViewer");
+      const imgTitleEl = document.getElementById("imgTitle");
+      const imgBtnClose = imgModal?.querySelector(".cert-close");
+
+      function openImageViewer(imgSrc, title) {
+        if (!imgSrc) return;
+        imgViewer.src = imgSrc;
+        imgTitleEl.textContent = title || "Certificate";
+        imgModal.hidden = false;
+        document.body.style.overflow = "hidden";
+        document.documentElement.classList.add("no-snap");
+      }
+      function closeImageViewer() {
+        imgModal.hidden = true;
+        imgViewer.src = "";
+        document.body.style.overflow = "";
+        document.documentElement.classList.remove("no-snap");
+      }
+      imgBtnClose?.addEventListener("click", closeImageViewer);
+      imgModal?.addEventListener("click", (e) => {
+        if (e.target === imgModal) closeImageViewer();
+      });
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && !imgModal.hidden) closeImageViewer();
+      });
+
+      // Click vào card => mở ảnh; Click nút "Xem PDF" => mở PDF
+      document.addEventListener("click", (e) => {
+        const card = e.target.closest(".cert-card");
+        if (!card) return;
+
+        // Nếu bấm nút "Xem PDF" trong card
+        const viewBtn = e.target.closest(".cert-btn");
+        if (viewBtn) {
+          const pdf = card.getAttribute("data-pdf");
+          const title = card.getAttribute("data-title");
+          openPdfViewer(pdf, title);
+          return;
+        }
+
+        // Mặc định: mở ảnh (ưu tiên data-img, fallback thumbnail)
+        const img =
+          card.getAttribute("data-img") ||
+          card.querySelector(".cert-media img")?.getAttribute("src");
+        const title = card.getAttribute("data-title");
+        openImageViewer(img, title);
+      });
+
+      // Nút “Xem CV” (About)
+      document.addEventListener("click", (e) => {
+        const cvBtn = e.target.closest("[data-open-cv]");
+        if (!cvBtn) return;
+        const pdf = cvBtn.getAttribute("data-pdf");
+        const title = cvBtn.getAttribute("data-title") || "Curriculum Vitae";
+        openPdfViewer(pdf, title);
       });
     </script>
   </body>
